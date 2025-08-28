@@ -1,4 +1,5 @@
 "use client";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
@@ -55,6 +56,8 @@ const Navbar = () => {
       {/* top header  */}
       <div className="hidden lg:block py-3">
         <div className="blog-container flex items-center justify-between">
+
+            {/* top header left side */}
           <h1 className="flex-shrink-0">
             <Link
               href={""}
@@ -67,6 +70,8 @@ const Navbar = () => {
 
           {/*  top header right side */}
           <div className="flex items-center space-x-3">
+
+            {/* search button */}
             <div>
               <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -86,6 +91,8 @@ const Navbar = () => {
                 </form>
               )}
             </div>
+
+            {/* theme toggle */}
 
             <button className="p-2 rounded-full text-gray-500 hover:text-primary transition-colors focus:outline-none focus:ring-2 ring-primary">
                 { theme === "light" ? <IoMdMoon size={18}/> : <IoMdSunny size={18}/>}
@@ -114,6 +121,30 @@ const Navbar = () => {
                     </Link>
                 </li>
             </ul>
+
+
+            {/* contact & login button  */}
+
+
+            
+                <Link href={"/contract"} className="px-5 py-1.5 border border-gray-300 text-gray-800 rounded-md hover:bg-primary hover:text-white transition-colors  focus:outline-none focus:ring-2 ring-primary cursor-pointer">
+                    Contract
+                </Link>
+               
+              {/* clerk  */}
+
+                <SignedOut>
+                    <SignInButton mode="modal">
+                        <button className="px-5 py-1.5 border border-gray-300  bg-primary text-white rounded-md hover:bg-primary hover:text-white transition-colors  focus:outline-none focus:ring-2 ring-primary cursor-pointer">Sign In</button>
+                    </SignInButton>
+                </SignedOut>
+
+
+                <SignedIn>
+                    <UserButton/>
+                </SignedIn>
+
+               
 
 
 
