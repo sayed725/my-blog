@@ -51,6 +51,7 @@ body {
   transform: scale(1.08)
 }
 
-.blog-container{
-  @apply   max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+
+.blog-container {
+   @apply container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
