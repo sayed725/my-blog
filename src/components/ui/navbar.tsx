@@ -7,6 +7,19 @@ import { BsChevronDown, BsInstagram, BsSearch } from "react-icons/bs";
 import { FaBlog, FaFacebookF, FaTwitter } from "react-icons/fa6";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
+import { Button } from "./button";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { TiThMenu } from "react-icons/ti";
+import { Input } from "./input";
+import { Toggle } from "./toggle";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./dropdown-menu";
 
 interface NavItems {
   label: string;
@@ -47,13 +60,18 @@ const mainNavItems: NavItems[] = [
 const Navbar = () => {
   const pathName = usePathname();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const theme = "light"; // TODO: get from context
+
+  const [theme, setTheme] = useState<"light" | "dark">("light"); // Placeholder for theme context
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+    // TODO: Implement theme context or state management
+  };
 
   return (
     <header className="relative bg-white font-lora text-gray-800">
       {/* top header  */}
-      <div className="hidden lg:block py-3">
+      <div className="py-3">
         <div className="blog-container flex items-center justify-between">
           {/* top header left side */}
           <h1 className="flex-shrink-0">
@@ -67,56 +85,61 @@ const Navbar = () => {
           </h1>
 
           {/*  top header right side */}
-          <div className="flex items-center space-x-3">
+          <div className="items-center space-x-3 hidden lg:flex">
             {/* search button */}
             <div className="relative">
-              <button
+              <Button
+                variant="secondary"
+                size="icon"
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 rounded-full text-gray-500 transition-colors focus:outline-none hover:text-primary cursor-pointer"
+                className="cursor-pointer rounded-full border border-gray-300 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 ring-primary transition-colors"
               >
                 <BsSearch size={18} />
-              </button>
+              </Button>
 
               {isSearchOpen && (
                 <form
                   action={"/search"}
-                  className="absolute right-0 top-full mt-2 p-2 bg-white rounded-md shadow-lg w-48 md:w-72 z-10 border border-gray-300"
+                  className="absolute right-0 top-full mt-2 p-2 bg-white rounded-md shadow-lg w-48 md:w-72 z-10"
                 >
-                  <input
+                 <Input
                     type="text"
                     name="q"
                     placeholder="Search..."
-                    className="w-full px-3 py-2 rounded-md border border-gray-300 bg-gray-50 text-gray-500 focus:outline-none"
+                    className="w-full text-gray-500"
                   />
                 </form>
               )}
             </div>
 
-            {/* theme toggle */}
-
-            <button className="p-2 rounded-full text-gray-500 hover:text-primary transition-colors focus:outline-none focus:ring-2 ring-primary">
+           {/* Theme Toggle */}
+            <Toggle
+              aria-label="Toggle theme"
+              onPressedChange={toggleTheme}
+              className="border rounded-full border-gray-300 p-2 hover:text-primary cursor-pointer"
+            >
               {theme === "light" ? (
-                <IoMdMoon size={18} />
+                <IoMdMoon className="h-5 w-5" />
               ) : (
-                <IoMdSunny size={18} />
+                <IoMdSunny className="h-5 w-5" />
               )}
-            </button>
+            </Toggle>
 
             {/* social network  */}
 
             <ul className="flex items-center space-x-3">
-              <li className="border p-2 border-gray-300 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 ring-primary">
-                <Link href={"#"} className="text-gray-500">
+              <li className="border p-2 border-gray-300 rounded-full hover:text-blue-400 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 ring-primary">
+                <Link href={"#"} className="text-gray-500 hover:text-blue-400">
                   <FaTwitter size={20} />
                 </Link>
               </li>
-              <li className="border p-2 border-gray-300 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 ring-primary">
-                <Link href={"#"} className="text-gray-500">
+              <li className="border p-2 border-gray-300 rounded-full hover:text-blue-500 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 ring-primary">
+                <Link href={"#"} className="text-gray-500 hover:text-blue-400">
                   <FaFacebookF size={20} />
                 </Link>
               </li>
-              <li className="border p-2 border-gray-300 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 ring-primary">
-                <Link href={"#"} className="text-gray-500">
+              <li className="border p-2 border-gray-300 rounded-full hover:bg-gray-100 hover:text-red-400 transition-colors focus:outline-none focus:ring-2 ring-primary">
+                <Link href={"#"} className="text-gray-500 hover:text-red-400">
                   <BsInstagram size={20} />
                 </Link>
               </li>
@@ -124,20 +147,20 @@ const Navbar = () => {
 
             {/* contact & login button  */}
 
-            <Link
-              href={"/contract"}
-              className="px-5 py-1.5 border border-gray-300 text-gray-800 rounded-md hover:bg-primary hover:text-white transition-colors  focus:outline-none focus:ring-2 ring-primary cursor-pointer"
+            <Button
+              variant="secondary"
+              className=" border border-gray-300 text-gray-800 rounded-md hover:bg-primary hover:text-white transition-colors cursor-pointer"
             >
-              Contract
-            </Link>
+              <Link href={"/contract"}>Contract</Link>
+            </Button>
 
             {/* clerk  */}
 
             <SignedOut>
               <SignInButton mode="modal">
-                <button className="px-5 py-1.5 border border-gray-300  bg-primary text-white rounded-md hover:bg-primary hover:text-white transition-colors  focus:outline-none focus:ring-2 ring-primary cursor-pointer">
+                <Button className="border border-gray-300  bg-primary text-white rounded-md hover:bg-primary hover:text-white transition-colors cursor-pointer">
                   Sign In
-                </button>
+                </Button>
               </SignInButton>
             </SignedOut>
 
@@ -145,84 +168,166 @@ const Navbar = () => {
               <UserButton />
             </SignedIn>
           </div>
-        </div>
-      </div>
 
-      {/* main nav  */}
+          {/* mobile menu sheet  */}
 
-      <nav className="p-3 border-b border-gray-200">
-        {/* large device  */}
-
-        <div className="blog-container ">
-          {/* mobile toggle menu */}
-
-          <div className="lg:hidden flex items-center justify-between w-full">
-            <h1 className="flex-shrink-0">
-              <Link
-                href={""}
-                className="text-2xl font-semibold text-gray-900 hover:text-primary transition-colors flex items-center"
-              >
-                <FaBlog />
-                <span className="ml-1">Blogs</span>
-              </Link>
-            </h1>
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 ring-primary"
-            >
-              {isMobileMenuOpen ? (
-                <HiOutlineX size={24} />
-              ) : (
-                <HiOutlineMenu size={24} />
-              )}
-            </button>
-          </div>
-
-          <ul className="hidden lg:flex items-center space-x-6 justify-between">
+          <div className="lg:hidden">
+            <Sheet>
+              <SheetTrigger>
+                <TiThMenu size={24} />
+              </SheetTrigger>
+              <SheetContent className="bg-white">
+                <SheetHeader>
+                  <SheetTitle>
+                    {" "}
+                    <div className="flex-shrink-0 px-4">
+                      <Link
+                        href={""}
+                        className="text-2xl font-semibold text-gray-900 hover:text-primary transition-colors flex items-center"
+                      >
+                        <FaBlog />
+                        <span className="ml-1">Blogs</span>
+                      </Link>
+                    </div>
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col space-y-2 px-4">
+                 <ul className="flex flex-col space-y-2">
             {mainNavItems.map((item, key) => {
               const isActive = pathName === item.href;
 
               return (
                 <li key={key} className="group relative">
-                  <Link
-                    href={item.href}
-                    className={`inline-flex items-center text-sm uppercase font-medium rounded-md text-gray-500 hover:text-primary ${
-                      isActive ? "text-primary" : ""
-                    } `}
-                  >
-                    {item.label}
+                  {
+                    item.subItems ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                          variant="ghost"
+                          className={`text-sm uppercase font-medium border-none ${
+                            isActive ? "text-primary" : "hover:text-primary"
+                          }`}
+                        >
+                          {item.label}
+                          <BsChevronDown />
+                        </Button>
+                            </DropdownMenuTrigger>
 
-                    {/* subitems icon */}
-
-                    {item.subItems && (
-                      <BsChevronDown
-                        size={18}
-                        className="ml-1 group-hover:rotate-180 transition-transform"
-                      />
-                    )}
-                  </Link>
-
-                  {/* sub items */}
-
-                  {item.subItems && (
-                    <ul className="absolute left-0 top-full mt-2 hidden group-hover:block bg-white shadow-lg rounded-md border border-gray-200 min-w-[230px]">
-                      {item.subItems.map((subItem, subKey) => {
-                        const isSubItemActive = pathName === subItem.href;
-                        return (
-                          <li key={subKey}>
+                            <DropdownMenuContent className="bg-white border border-gray-200">
+                                {item.subItems.map((subItem, subKey) => (
+                          <DropdownMenuItem key={subKey} asChild >
                             <Link
                               href={subItem.href}
-                              className={`block px-4 py-2 text-sm uppercase text-gray-700 hover:bg-gray-100 transition-colors ${
-                                isSubItemActive ? "text-primary" : ""
+                              className={`text-sm uppercase ${
+                                pathName === subItem.href
+                                  ? "text-primary"
+                                  : "text-foreground hover:text-primary"
                               }`}
                             >
                               {subItem.label}
                             </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
+                          </DropdownMenuItem>
+                        ))}
+                            </DropdownMenuContent>
+
+                        </DropdownMenu>
+                    ) : (
+                        <Button
+                      variant="ghost"
+                      asChild
+                      className={`text-sm uppercase font-medium ${
+                        isActive ? "text-primary" : "text-foreground hover:text-primary"
+                      }`}
+                    >
+                      <Link href={item.href}>{item.label}</Link>
+                    </Button>
+                    )
+                  }
+                </li>
+              );
+            })}
+          </ul>
+
+                     {/* clerk  */}
+
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button  className="border border-gray-300  bg-primary text-white rounded-md hover:bg-primary hover:text-white transition-colors cursor-pointer">
+                  Sign In
+                </Button>
+              </SignInButton>
+            </SignedOut>
+
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+                    
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </div>
+
+      {/* main nav  */}
+
+      <nav className="py-3 border-b border-gray-200">
+        {/* large device  */}
+
+        <div className="blog-container">
+          {/* mobile toggle menu */}
+
+          <ul className="hidden lg:flex items-center justify-between">
+            {mainNavItems.map((item, key) => {
+              const isActive = pathName === item.href;
+
+              return (
+                <li key={key} className="group relative">
+                  {
+                    item.subItems ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                          variant="ghost"
+                          className={`text-sm uppercase font-medium border-none ${
+                            isActive ? "text-primary" : "hover:text-primary"
+                          }`}
+                        >
+                          {item.label}
+                          <BsChevronDown />
+                        </Button>
+                            </DropdownMenuTrigger>
+
+                            <DropdownMenuContent className="bg-white border border-gray-200">
+                                {item.subItems.map((subItem, subKey) => (
+                          <DropdownMenuItem key={subKey} asChild >
+                            <Link
+                              href={subItem.href}
+                              className={`text-sm uppercase ${
+                                pathName === subItem.href
+                                  ? "text-primary"
+                                  : "text-foreground hover:text-primary"
+                              }`}
+                            >
+                              {subItem.label}
+                            </Link>
+                          </DropdownMenuItem>
+                        ))}
+                            </DropdownMenuContent>
+
+                        </DropdownMenu>
+                    ) : (
+                        <Button
+                      variant="ghost"
+                      asChild
+                      className={`text-sm uppercase font-medium ${
+                        isActive ? "text-primary" : "text-foreground hover:text-primary"
+                      }`}
+                    >
+                      <Link href={item.href}>{item.label}</Link>
+                    </Button>
+                    )
+                  }
                 </li>
               );
             })}
@@ -230,83 +335,6 @@ const Navbar = () => {
         </div>
 
         {/* mobile menu */}
-
-        {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 bg-white z-50 overflow-y-auto">
-            <div className="flex justify-end p-4">
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="py-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 ring-primary duration-300"
-              >
-                <HiOutlineX size={28} />
-              </button>
-            </div>
-
-            <ul className="flex flex-col space-y-2 p-4">
-              {mainNavItems.map((item, key) => {
-                const isActive = pathName === item.href;
-
-                return (
-                  <li key={key} className="group relative">
-                    <Link
-                      href={item.href}
-                      className={`inline-flex items-center text-sm uppercase font-medium rounded-md text-gray-500 hover:text-primary ${
-                        isActive ? "text-primary" : ""
-                      } `}
-                    >
-                      {item.label}
-
-                      {/* subitems icon */}
-
-                      {item.subItems && (
-                        <BsChevronDown
-                          size={18}
-                          className="ml-1 group-hover:rotate-180 transition-transform"
-                        />
-                      )}
-                    </Link>
-
-                    {/* sub items */}
-
-                    {item.subItems && (
-                      <ul className="absolute left-0 top-full mt-2 hidden group-hover:block bg-white shadow-lg rounded-md border border-gray-200 min-w-[230px]">
-                        {item.subItems.map((subItem, subKey) => {
-                          const isSubItemActive = pathName === subItem.href;
-                          return (
-                            <li key={subKey}>
-                              <Link
-                                href={subItem.href}
-                                className={`block px-4 py-2 text-sm uppercase text-gray-700 hover:bg-gray-100 transition-colors ${
-                                  isSubItemActive ? "text-primary" : ""
-                                }`}
-                              >
-                                {subItem.label}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
-
-              {/* clerk  */}
-
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <button className="px-5 py-1.5 border border-gray-300  bg-primary text-white rounded-md hover:bg-primary hover:text-white transition-colors  focus:outline-none focus:ring-2 ring-primary cursor-pointer">
-                    Sign In
-                  </button>
-                </SignInButton>
-              </SignedOut>
-
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </ul>
-          </div>
-        )}
       </nav>
     </header>
   );
