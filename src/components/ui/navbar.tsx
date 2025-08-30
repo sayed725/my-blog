@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { BsChevronDown, BsInstagram, BsSearch } from "react-icons/bs";
 import { FaBlog, FaFacebookF, FaTwitter } from "react-icons/fa6";
-import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
 import { Button } from "./button";
 
@@ -213,7 +213,7 @@ const Navbar = () => {
                         </Button>
                             </DropdownMenuTrigger>
 
-                            <DropdownMenuContent className="bg-white border border-gray-200">
+                            <DropdownMenuContent className="bg-white border-none">
                                 {item.subItems.map((subItem, subKey) => (
                           <DropdownMenuItem key={subKey} asChild >
                             <Link
