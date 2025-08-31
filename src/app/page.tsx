@@ -1,19 +1,13 @@
-import { connectDB } from "@/lib/mongodb";
-import ArticleModel from "@/models/Article";
-
-
-
-
+import { getHomePageData } from "@/lib/data";
 
 
 export default async function Home() {
 
  
-    await connectDB()
+   const {articles} = await getHomePageData()
 
-    const article = await ArticleModel.find().lean()
 
-    console.log(article)
+   console.log(articles)
 
 
   return (
