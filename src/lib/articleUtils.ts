@@ -19,7 +19,7 @@ export function separatedArticlesBySection (allArticles: IArticle[]){
 
     separated.editorPicksPrimary = allArticles.find((article)=> article.meta.displaySection === 'editorPickPrimary')
 
-    separated.editorPicksSecondary = allArticles.filter((article)=> article.meta.displaySection === 'editorPickPrimary')
+    separated.editorPicksSecondary = allArticles.filter((article)=> article.meta.displaySection === 'editorPickSecondary')
 
     separated.sliderArticles = allArticles.filter((article)=> article.meta.displaySection  === 'slider')
 
