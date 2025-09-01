@@ -26,7 +26,7 @@ const SwiperCard = ({article}: SwiperCardProps) => {
         </div>
 
         <div className='w-full md:w-1/2 h-48 md:h-auto'>
-        <img src={article.image} alt="" /></div>
+        <img src={article.image} alt="image" /></div>
     </div>
   )
 }

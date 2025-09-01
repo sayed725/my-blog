@@ -1,4 +1,5 @@
 import FeaturedSliderSection from "@/components/sections/home/FeaturedSliderSection";
+import GridAndAds from "@/components/sections/home/GridAndAds";
 import HomeContentSection from "@/components/sections/home/HomeContentSection";
 import { getHomePageData } from "@/lib/data";
 
@@ -30,6 +31,10 @@ export default async function Home() {
 
       {
         sliderArticles.length > 0 && <FeaturedSliderSection articles={sliderArticles}/>
+      }
+
+      {
+        gridArticles.length > 0 && <GridAndAds articles={gridArticles}/>
       }
      
     </div>
