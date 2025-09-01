@@ -1,6 +1,7 @@
 import FeaturedSliderSection from "@/components/sections/home/FeaturedSliderSection";
 import GridAndAds from "@/components/sections/home/GridAndAds";
 import HomeContentSection from "@/components/sections/home/HomeContentSection";
+import MostRecentSection from "@/components/sections/home/MostRecentSection";
 import { getHomePageData } from "@/lib/data";
 
 
@@ -35,6 +36,15 @@ export default async function Home() {
 
       {
         gridArticles.length > 0 && <GridAndAds articles={gridArticles}/>
+      }
+
+      {
+        mostRecentArticles.length > 0 && allMostRecentGridArticles.length > 0 && 
+        popularArticles.length > 0 && <MostRecentSection mostRecentArticles={mostRecentArticles} 
+        allMostRecentGridArticles={allMostRecentGridArticles}
+        popularArticles={popularArticles}
+
+        />
       }
      
     </div>
