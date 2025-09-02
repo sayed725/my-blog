@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaChevronUp } from 'react-icons/fa';
 
 const BackToTopButton = () => {
