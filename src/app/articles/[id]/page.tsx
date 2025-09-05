@@ -1,3 +1,4 @@
+import CommentSection from '@/components/comments/CommentSection';
 import { Article } from '@/types/article';
 import { Comment } from '@/types/comments';
 import Image from 'next/image';
@@ -167,9 +168,9 @@ const ArticleDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
 
 
 
+     {/* comment section */}
 
-
-
+       <CommentSection articleId={article._id} initialComments={article.comments}/>
 
    </section>
   )
