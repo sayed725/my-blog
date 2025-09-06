@@ -4,7 +4,7 @@ import { postComment } from '@/lib/postComment';
 import { Comment } from '@/types/comments';
 import { useUser } from '@clerk/nextjs';
 import React, { FormEvent, useState } from 'react'
-// import CommentItem from './CommentItem';
+import CommentItem from './CommentItem';
 // import Pagination from '../ui/Pagination';
 
 
@@ -97,7 +97,7 @@ const CommentsSection = ({articleId, initialComments}: CommentsSectionProps) => 
         <h3 className='text-2xl font-bold mb-6'>Comments ({comments.length})</h3>
 
         {/* comments list */}
-        {/* <div>
+        <div>
             {currentComments.map((comment, index) => (
                 <CommentItem
                     key={index}
@@ -108,7 +108,7 @@ const CommentsSection = ({articleId, initialComments}: CommentsSectionProps) => 
                     isSubmitting={isSubmitting}
                 />
             ))}
-        </div> */}
+        </div>
 
         {/* Pagination */}
         {/* <Pagination

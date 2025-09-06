@@ -63,7 +63,13 @@ const ArticleDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
                 <div className="mb-5 text-left">
                     <h1 className="text-4xl font-lora font-bold mb-6">{article.title}</h1>
                     <div className="flex justify-start items-center space-x-2 text-gray-500">
-                        <img alt="author avatar" src={article?.authorImageUrl || 'https://placehold.co/120x120/e2e8f0/4a5568?text=Author'} className="w-12 h-12 rounded-full " />
+                        <Image
+                            alt="author avatar"
+                            src={article?.authorImageUrl || 'https://placehold.co/120x120/e2e8f0/4a5568?text=Author'}
+                            width={48}
+                            height={48}
+                            className="w-12 h-12 rounded-full"
+                        />
                         <a href="#" className="hover:underline">{article.meta.author || 'Unknown'}</a>
                         <span>in</span>
                         <a href="#" className="hover:underline capitalize text-primary">{article.meta.category}</a>
@@ -152,7 +158,13 @@ const ArticleDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
                 {/* Author Box */}
         <div className="my-12 p-6 bg-gray-50 rounded-lg">
                     <div className="flex items-start space-x-6">
-                        <img alt="author avatar" src={article.authorImageUrl} className="w-24 h-24 rounded-full" />
+                        <Image
+                            alt="author avatar"
+                            src={article.authorImageUrl}
+                            width={96}
+                            height={96}
+                            className="w-24 h-24 rounded-full"
+                        />
                         <div className="flex-grow">
                             <h5 className="text-xl font-bold"><a href="#" className="hover:underline">{article?.meta.author || 'Dave Gershgorn'}</a></h5>
                             <p className="text-gray-600 mt-2 hidden md:block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet ut ligula et semper. Aenean consectetur, est id gravida venenatis.</p>
