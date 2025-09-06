@@ -1,8 +1,7 @@
 import { Comment } from '@/types/comments'
-import Image from 'next/image';
 import React from 'react'
-// import ReplyForm from './ReplyForm';
-// import ReplyList from './ReplyList';
+import ReplyForm from './ReplyForm';
+import ReplyList from './ReplyList';
 
 interface CommentItemProps {
     comment: Comment;
@@ -16,26 +15,20 @@ const CommentItem = ({comment, isReplying, onReplyClick, onReplySubmit, isSubmit
   return (
     <div className='mb-6'>
         <div className='flex items-start space-x-4'>
-            <Image
-                src={comment.authorImageUrl || "https://placehold.co/50x50/e2e8f0/4a5568?text=User"}
-                alt="User avatar"
-                width={48}
-                height={48}
-                className='w-12 h-12 rounded-full'
-            />
+            <img src={comment.authorImageUrl || "https://placehold.co/50x50/e2e8f0/4a5568?text=User"} alt="" className='w-12 h-12 rounded-full' />
             <div>
                 <p>{comment.content}</p>
-                <div className='text-sm text-gray-600'>
+                {/* <div className='text-sm text-gray-600'>
                     <strong>{comment.author}</strong>
                     {comment.createdAt && <> . {new Date(comment.createdAt).toLocaleString()}</>}
-                </div>
+                </div> */}
                 <button onClick={onReplyClick} className='text-sm text-blue-500 hover:underline mt-1 cursor-pointer'>
                     {isReplying ? "Cancel" : "Reply"}
                 </button>
             </div>
         </div>
-        {/* {
-            comment.replyText.length > 0 && <ReplyList replies ={comment.replyText}/>
+        {
+            comment?.replyText?.length > 0 && <ReplyList replies ={comment.replyText}/>
         }
 
         {
@@ -46,7 +39,7 @@ const CommentItem = ({comment, isReplying, onReplyClick, onReplySubmit, isSubmit
                 placeholder={`Replying to ${comment.author}....`}
                 />
             )
-        } */}
+        }
     </div>
   )
 }

@@ -5,6 +5,7 @@ import { Comment } from '@/types/comments';
 import { useUser } from '@clerk/nextjs';
 import React, { FormEvent, useState } from 'react'
 import CommentItem from './CommentItem';
+import Pagination from './Pagination';
 // import Pagination from '../ui/Pagination';
 
 
@@ -14,7 +15,7 @@ interface CommentsSectionProps {
 }
 
 const CommentsSection = ({articleId, initialComments}: CommentsSectionProps) => {
-    const {isSignedIn, user, isLoaded} = useUser();
+    const {isSignedIn, user} = useUser();
     const [comments, setComments] = useState<Comment[]>(initialComments);
     const [replyingTo, setReplyingTo] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -80,11 +81,11 @@ const CommentsSection = ({articleId, initialComments}: CommentsSectionProps) => 
             setCurrentPage(1)
             form.reset()
         } catch (err: unknown) {
-             if (err instanceof Error) {
-            setError(err.message);
-        } else {
-            setError("An unexpected error occurred.");
-        }
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("An unexpected error occurred.");
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -111,11 +112,11 @@ const CommentsSection = ({articleId, initialComments}: CommentsSectionProps) => 
         </div>
 
         {/* Pagination */}
-        {/* <Pagination
+        <Pagination
             currentPage={currentPage}
             pageCount={pageCount}
             onPageChange={setCurrentPage}
-        /> */}
+        />
 
 
         {/* New comment form */}

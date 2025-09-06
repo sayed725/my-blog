@@ -1,44 +1,37 @@
-import { connectDB } from '@/lib/mongodb';
-import CommentModel from '@/models/Comment';
-import mongoose from 'mongoose';
-
+import { connectDB } from "@/lib/mongodb";
+import CommentModel from "@/models/Comment";
+import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST (request: NextRequest) {
-    
+export async function POST(request:NextRequest) {
     try {
-        const body = await request.json()
+        const body = await request.json();
+        const { articleId, author, content, parentId} = body;
 
-        const {articleId, author, content, parentId } = body;
-
-        if(!articleId || !content || content.trim()=== ""){
-            return NextResponse.json({message: "Missing required field: articleId and comments"},{status: 400})
+        if(!articleId || !content || content.trim() === '') {
+            return NextResponse.json({message: "Missing required filed: articleId and comments"}, {status: 400})
         }
-
         const finalAuthor = author && author.trim() !== '' ? author : "Anonymous";
 
-        await connectDB()
-
-        if(parentId){
+        await connectDB();
+        if(parentId) {
             // this goes to a reply of a comment
-            if(!mongoose.Types.ObjectId.isValid(parentId)){
-              return NextResponse.json({message: "invalid parent comment id"},{status: 400})
+            if(!mongoose.Types.ObjectId.isValid(parentId)) {
+                return NextResponse.json({message: "Invalid parent Comment Id"}, {status: 400})
             }
             const newReply = {
                 author: finalAuthor,
-                comment: content,
+                comment: content
             }
-
-             const updatedComment = await CommentModel.findByIdAndUpdate(parentId, {$push: {replyText: newReply}}, {new: true});
+            const updatedComment = await CommentModel.findByIdAndUpdate(parentId, {$push: {replyText: newReply}}, {new: true});
             
             if(!updatedComment) {
-                 return NextResponse.json({message: "Parent comment not found"},{status: 400})
+                 return NextResponse.json({message: "Parent Comment Not Found"}, {status: 404})
             }
 
-             return NextResponse.json(updatedComment, {status: 200})
+            return NextResponse.json(updatedComment, {status: 200})
 
-
-        }else {
+        } else {
             // this is a new comment
             const newComment = new CommentModel({
                 articleId,
@@ -51,11 +44,11 @@ export async function POST (request: NextRequest) {
             return NextResponse.json(newComment, {status: 201})
         }
 
-    }  catch (error: unknown) {
+    } catch (error: unknown) {
         console.error("Error in Post Comment on '/api/comments': ", error);
-        const errorMessage = typeof error === 'object' && error !== null && 'message' in error
-            ? (error as { message: string }).message
-            : 'Unknown error';
-        return NextResponse.json({message: "Failed to process commment.", details: errorMessage}, {status: 500})
+        return NextResponse.json({
+            message: "Failed to process commment.",
+            details: error instanceof Error ? error.message : "Unknown error"
+        }, {status: 500});
     }
 }
