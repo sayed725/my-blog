@@ -109,6 +109,35 @@ const PostForm = ({onSubmit, initialData}: PostFormProps) => {
              {errors.excerpt && <p className='text-red-600 text-sm mt-1' >{errors.excerpt.message}</p>}
         </div>
 
+                  {/* Tags */}
+      <div>
+        <label className="block font-semibold mb-1" htmlFor="tags">
+          Tags (comma separated)
+        </label>
+        <input
+          id="tags"
+          type="text"
+          {...register("tags")}
+          defaultValue={initialData?.tags || ""}
+          className="w-full border rounded px-3 py-2"
+          placeholder="e.g. react, javascript, tutorial"
+        />
+      </div>
+
+      {/* Status */}
+      <div className=" space-x-2">
+                <label htmlFor="status" className="block font-semibold mb-1">Status</label>
+                <select 
+                    id="status"
+                    {...register("status")}
+                    defaultChecked={initialData?.status ?? true}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                    <option value="true">Published</option>
+                    <option value="false">Draft</option>
+                </select>
+      </div>
+
 
 
 
