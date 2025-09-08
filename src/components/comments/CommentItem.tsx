@@ -2,6 +2,7 @@ import { Comment } from '@/types/comments'
 import React from 'react'
 import ReplyForm from './ReplyForm';
 import ReplyList from './ReplyList';
+import moment from "moment";
 
 interface CommentItemProps {
     comment: Comment;
@@ -18,10 +19,10 @@ const CommentItem = ({comment, isReplying, onReplyClick, onReplySubmit, isSubmit
             <img src={comment.authorImageUrl || "https://placehold.co/50x50/e2e8f0/4a5568?text=User"} alt="" className='w-12 h-12 rounded-full' />
             <div>
                 <p>{comment.content}</p>
-                {/* <div className='text-sm text-gray-600'>
+                <div className='text-sm text-gray-600'>
                     <strong>{comment.author}</strong>
-                    {comment.createdAt && <> . {new Date(comment.createdAt).toLocaleString()}</>}
-                </div> */}
+                    <p>{comment.createdAt && moment(comment.createdAt).fromNow()}</p>
+                </div>
                 <button onClick={onReplyClick} className='text-sm text-blue-500 hover:underline mt-1 cursor-pointer'>
                     {isReplying ? "Cancel" : "Reply"}
                 </button>

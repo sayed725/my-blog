@@ -1,5 +1,6 @@
 import { Reply } from '@/types/comments'
 import React from 'react'
+import moment from "moment";
 
 const ReplyList = ({replies}: {replies: Reply[]}) => {
   return (
@@ -13,10 +14,10 @@ const ReplyList = ({replies}: {replies: Reply[]}) => {
           />
           <div>
             <p>{reply.comment}</p>
-            {/* <div className="text-xs text-gray-500">
+            <div className="text-xs text-gray-500">
               <strong>{reply.author}</strong>
-              {reply?.createdAt && <> • {new Date(reply.createdAt).toLocaleString()}</>}
-            </div> */}
+             <p>{reply?.createdAt && moment(reply.createdAt).fromNow()}</p>
+            </div>
           </div>
         </div>
       ))}
