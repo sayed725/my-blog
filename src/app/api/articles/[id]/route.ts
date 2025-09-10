@@ -44,3 +44,30 @@ export async function GET(request:NextRequest, {params}: {params: Promise<{id: s
 
 
 }
+
+
+export async function DELETE(request:NextRequest, {params}: {params: Promise<{id: string}>}) {
+    
+    try {
+        await connectDB()
+        const {id} = await params;
+           if(!mongoose.Types.ObjectId.isValid(id)){
+           return NextResponse.json({message: "invalid article id format"}, {status: 400})
+        }
+
+        const deletedArticle = await ArticleModel.findByIdAndDelete(id);
+        if(!deletedArticle){
+            return NextResponse.json({message: "Article not found"}, {status: 404})
+        }
+     return NextResponse.json({message: "Article Deleted Successfully"}, {status: 200})
+
+    } catch (err: unknown) {
+            console.error("Failed to delete article:", err);
+            if (err instanceof Error) {
+                alert(err.message || "An error occurred while deleting the article.");
+            } else {
+                alert("An error occurred while deleting the article.");
+            }
+            
+        }
+}

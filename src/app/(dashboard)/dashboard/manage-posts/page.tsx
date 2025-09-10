@@ -1,3 +1,4 @@
+import DeleteButton from '@/components/ui/DeleteButton';
 import { connectDB } from '@/lib/mongodb'
 import ArticleModel, { IArticle } from '@/models/Article';
 import Link from 'next/link';
@@ -57,7 +58,7 @@ const ManagePostPage = async({searchParams} : {searchParams: Promise<{page?: str
                   <td className='p-3'>{post.meta.category}</td>
                   <td className='p-3 flex gap-4'>
                     <Link href={`/dashboard/edit-post/${post._id}`} className='text-blue-600 hover:underline'>Edit</Link>
-                   {/* <DeleteButton id={post._id}/> */}
+                   <DeleteButton id={post._id}/>
                   </td>
                 </tr>
               ))}

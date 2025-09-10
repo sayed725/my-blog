@@ -105,7 +105,7 @@ const ArticleDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
 
               <div className='grow space-y-4 prose lg:prose-xl max-w-none [&>p:first-of-type]:first-letter:text-7xl [&>p:first-of-type]:first-letter:font-bold [&>p:first-of-type]:first-letter:mr-4 [&>p:first-of-type]:first-letter:float-left [&>p:first-of-type]:first-letter:leading-none '>
               {
-                article.excerpt && <p dangerouslySetInnerHTML={{__html: article?.excerpt}} />
+                article.excerpt && <div dangerouslySetInnerHTML={{__html: article?.excerpt}} />
               }
               
 
