@@ -1,9 +1,10 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useForm } from 'react-hook-form';
 import QuillEditor from './QuillEditor';
+import Image from 'next/image';
 
 
 export interface PostFormType {
@@ -41,7 +42,27 @@ const PostForm = ({onSubmit, initialData}: PostFormProps) => {
 
     }
   })
-  const onFormSubmit = (data: PostFormType) => {console.log(data)}
+
+//   for image upload 
+  
+ const [imageFile, setImageFile] = React.useState<File | null>(null);
+  const [exsistingImage, setExistingImage] = React.useState<string | null>(initialData?.image || null);
+
+  useEffect(()=>{
+
+    if(initialData?.image){
+        setExistingImage(initialData.image)
+    }
+          
+
+  },[initialData])
+
+
+
+
+   const onFormSubmit= (data:PostFormType) => {
+    onSubmit(data, imageFile);
+  }
 
 
 
@@ -137,6 +158,49 @@ const PostForm = ({onSubmit, initialData}: PostFormProps) => {
                     <option value="false">Draft</option>
                 </select>
       </div>
+
+      {/* image upload */}
+
+          <div>
+        <label className="block font-semibold mb-1"> 
+          Upload Image
+        </label>
+        <input
+          id="image"
+          accept='image/*'
+          type="file"
+          
+          onChange={(e) => {
+            if(e.target.files?.[0]) {
+                setImageFile(e.target.files[0]);
+                setExistingImage(null); // Clear existing image if a new file is selected
+            }
+         }}
+         className="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border-0 file:rounded-full file:text-sm file:font-semibold file:bg-indigo-500 file:text-white hover:file:bg-indigo-600 file:hover:text-white cursor-pointer"
+        />
+
+        {
+            imageFile && (
+                <Image src={URL.createObjectURL(imageFile)} alt='Image Preview' className='mt-2 max-h-40 border object-contain' width={200} height={200} priority/>
+            )
+
+        }
+
+          {
+                !imageFile && exsistingImage && (
+                     <Image src={exsistingImage} alt='Image Preview' className='mt-2 max-h-40 border object-contain' width={200} height={200} priority/>
+                )
+
+            }
+         
+        
+      </div>
+
+
+        {/* submit button */}
+    <div>
+        <button type='submit' className='bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors'>Submit</button>
+    </div>
 
 
 
