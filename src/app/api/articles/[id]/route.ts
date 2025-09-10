@@ -71,3 +71,30 @@ export async function DELETE(request:NextRequest, {params}: {params: Promise<{id
             
         }
 }
+
+
+export async function PUT(req: NextRequest, {params}: {params: Promise<{id: string}>}) {
+    try {
+        await connectDB();
+        const {id} = await params;
+        if(!mongoose.Types.ObjectId.isValid(id)) {
+            return NextResponse.json({message: "Invalid article ID format."}, {status: 400})
+        }
+
+        const body = await req.json();
+
+        const updatePost = await ArticleModel.findByIdAndUpdate(id, body, {new: true});
+        if(!updatePost) {
+            return NextResponse.json({message: "Article not found."}, {status: 404})
+        }
+        return NextResponse.json({message: "Article updated successfully."}, {status: 200})
+    } catch (error: unknown) {
+         console.error(`Error deleting article`, error);
+            return NextResponse.json({
+                message: "Failed to delete article.",
+                details: error instanceof Error ? error.message : String(error)
+            }, {
+                status: 500
+            })   
+    }
+}

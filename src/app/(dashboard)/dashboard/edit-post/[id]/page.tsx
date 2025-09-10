@@ -1,10 +1,11 @@
 "use client"
 import PostForm, { PostFormType } from '@/components/form/PostForm'
-import { useParams } from 'next/navigation';
+import { uploadImageToCloudinary } from '@/lib/uploadImageToCloudinary';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 
 const EditPostPage = () => {
-
+      const router = useRouter();
     const {id} = useParams();
 
      const [initialData, setInitialData] = React.useState<PostFormType | undefined>(undefined);
@@ -52,9 +53,46 @@ const EditPostPage = () => {
 
     if(!initialData) return <p className='text-red-500'>Post not found</p>;
 
+ const handleUpdatePost = async(data: PostFormType, imageFile: File | null) => {
+         try {
+                let imageUrl = "";
+              if(imageFile) {
+                imageUrl = await uploadImageToCloudinary(imageFile);
+              }
+              const postData = {
+                ...data,
+                status: data.status ? data.status === true : data.status === false,
+               ...(imageUrl && { image: imageUrl }),
+                caption: data.title,
+                tags: data.tags,
+                meta: {
+                  author: data.author || "Unknown Author", 
+                  authorHref: "/",
+                  category: data.category || "Uncategorized",
+                  categoryHref: "/",
+                  date: new Date().toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"}),
+                  readingTime: `${Math.ceil(data.excerpt.split(' ').length/200)} min read`,
+                }
+              }
+        
+              const res = await fetch(`/api/articles/${id}`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(postData)
+              })
+              if(!res.ok) {
+                throw new Error("Failed to add post");
+              }
 
-    const handleUpdatePost =  () =>{
-
+              alert("Post updated successfully!");
+        
+              router.push("/dashboard/manage-posts");
+              } catch (error) {
+                alert("Failed to update post. Please try again.");
+                console.error("Error adding post:", error);
+              }
     }
 
 
