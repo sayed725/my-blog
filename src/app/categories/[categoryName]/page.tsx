@@ -37,7 +37,7 @@ const decodedCategoryName = decodeURIComponent(categoryName)
 
 const articles = await getArticlesByCategory(decodedCategoryName) 
 
-console.log(articles)
+// console.log(articles)
 
 
   return (

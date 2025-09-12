@@ -1,29 +1,29 @@
 "use client"
-import PostForm, { PostFormType } from '@/components/form/PostForm'
-import { uploadImageToCloudinary } from '@/lib/uploadImageToCloudinary';
+
+// import PostForm, { PostFormType } from '@/components/form/PostForm';
+// import uploadImageToCloudinary from '@/lib/uploadImageToCloudinary';
+import PostForm, { PostFormType } from '../../../../../components/form/PostForm'
+import  uploadImageToCloudinary  from '../../../../../lib/uploadImageToCloudinary';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 
 const EditPostPage = () => {
-      const router = useRouter();
+    const router = useRouter();
     const {id} = useParams();
+    const [initialData, setInitialData] = React.useState<PostFormType | undefined>(undefined);
+    const [loading, setLoading] = React.useState(true);
 
-     const [initialData, setInitialData] = React.useState<PostFormType | undefined>(undefined);
-     const [loading, setLoading] = React.useState(true);
-
-     useEffect(()=>{
-
+    useEffect(() => {
         if(!id) return;
         async function fetchPost() {
             try {
-                const res = await fetch (`/api/articles/${id}`)
-               if(!res.ok) {
+                const res = await fetch(`/api/articles/${id}`);
+                if(!res.ok) {
                     throw new Error("Failed to fetch post data");
                 }
 
                 const post = await res.json();
-
-                 setInitialData({
+                setInitialData({
                     title: post.title,
                     author: post.meta.author,
                     category: post.meta.category,
@@ -33,27 +33,24 @@ const EditPostPage = () => {
                     image: post.image || "",
                 })
 
-                setLoading(false)
-
+                setLoading(false);
 
             } catch (error) {
-                 setLoading(false);
+                setLoading(false);
                 console.error("Error fetching post data:", error);
             }
         }
-
         fetchPost();
+    }, [id])
 
-     },[id])
-
-
-      // console.log(initialData)
+    // console.log(initialData)
 
     if(loading) return <p>Loading...</p>;
 
     if(!initialData) return <p className='text-red-500'>Post not found</p>;
 
- const handleUpdatePost = async(data: PostFormType, imageFile: File | null) => {
+
+    const handleUpdatePost = async(data: PostFormType, imageFile: File | null) => {
          try {
                 let imageUrl = "";
               if(imageFile) {
@@ -94,12 +91,10 @@ const EditPostPage = () => {
                 console.error("Error adding post:", error);
               }
     }
-
-
   return (
     <section className='max-w-4xl'>
-         <h1 className='text-3xl font-bold mb-6'>Edit Post </h1>
-          <PostForm onSubmit={handleUpdatePost} initialData={initialData}/>
+        <h1 className='text-3xl font-bold mb-6'>Edit Post </h1>
+        <PostForm onSubmit={handleUpdatePost} initialData={initialData}/>
     </section>
   )
 }

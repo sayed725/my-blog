@@ -1,6 +1,6 @@
 
 
-export async function uploadImageToCloudinary(imageFile: File) {
+export default async function uploadImageToCloudinary(imageFile: File) {
     
     const formData = new FormData();
     formData.append("file", imageFile);

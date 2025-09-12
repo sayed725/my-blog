@@ -34,7 +34,7 @@ const ManagePostPage = async({searchParams} : {searchParams: Promise<{page?: str
 
   return (
     <div className='max-w-5xl'>
-      <h1 className='text-3xl font-bold mb-6'>Manage Post</h1>
+      <h1 className='text-3xl font-bold mb-6'>Manage Posts</h1>
 
       {posts.length === 0 ? (
         <p className='text-gray-500'>No posts found.</p>) : (

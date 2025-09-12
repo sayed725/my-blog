@@ -53,36 +53,29 @@ export async function GET(request: NextRequest) {
   
       return NextResponse.json(articles);
   
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error("Error fetching articles:", error);
-      const errorMessage =
-        error instanceof Error ? error.message : "Unknown error";
       return NextResponse.json(
-          { message: "Failed to fetch articles", error: errorMessage },
+          { message: "Failed to fetch articles", error: error.message },
           { status: 500 }
       );
     }
 }
 
-
-export async function POST(request: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
-
     await connectDB();
     const body = await request.json();
-    const newArticle = new ArticleModel(body)
+    const newArticle = new ArticleModel(body);
 
     await newArticle.save();
 
     return NextResponse.json(newArticle, {status: 201})
-
     
-  } catch (error) {
-    console.error("Error fetching articles:", error);
-      const errorMessage =
-        error instanceof Error ? error.message : "Unknown error";
+  } catch (error: any) {
+     console.error("Error fetching articles:", error);
       return NextResponse.json(
-          { message: "Failed to fetch articles", error: errorMessage },
+          { message: "Failed to fetch articles", error: error.message },
           { status: 500 }
       );
   }
