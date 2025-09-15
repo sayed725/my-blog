@@ -1,4 +1,5 @@
 import MostRecentSection from '@/components/sections/home/MostRecentSection'
+import { Button } from '@/components/ui/button'
 import { IArticle } from '@/models/Article'
 import Link from 'next/link'
 import React from 'react'
@@ -44,7 +45,7 @@ const articles = await getArticlesByCategory(decodedCategoryName)
      <div className="min-h-screen">
         <div className="container  max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-lg font-semibold text-blue-600">Category</p>
+            <p className="text-lg font-semibold text-primary">Category</p>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 capitalize">
               {decodedCategoryName}
             </h1>
@@ -62,9 +63,12 @@ const articles = await getArticlesByCategory(decodedCategoryName)
             <div className="text-center py-16">
               <h2 className="text-2xl font-semibold text-gray-700">No articles found</h2>
               <p className="text-gray-500 mt-2">There are no articles in the &quot; {decodedCategoryName} &quot;category yet.</p>
-              <Link href="/" className="mt-6 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+             <Button variant="secondary"
+              className=" border mt-6 border-gray-300 rounded-md bg-primary text-white transition-colors cursor-pointer cursor-pointer">
+               <Link href="/">
                 Back to Home
               </Link>
+             </Button>
             </div>
           )}
         </div>
