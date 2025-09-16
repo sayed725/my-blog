@@ -64,10 +64,10 @@ const HomeContentSection = ({
             ))}
           </ol>
           <Link
-            href="/archive"
+            href="/articles"
             className="inline-flex items-center text-sm uppercase text-primary hover:underline transition-colors mt-6"
           >
-            See all trending
+            See all Articles
             <FaArrowRight className="ml-2" size={12} />
           </Link>
         </div>

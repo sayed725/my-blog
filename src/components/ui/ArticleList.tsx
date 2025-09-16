@@ -61,8 +61,8 @@ const ArticleList = ({initialArticles}: { initialArticles: IArticle[]}) => {
    <div className='grid md:grid-cols-4 gap-10'>
         {
             articles.map((article: IArticle, index: number) => (
-                <Link key={index} href={`/articles/${article._id}`} className="block h-80">
-            <div className="group bg-white shadow-md hover:shadow-lg transition rounded-xl overflow-hidden">
+                <Link key={index} href={`/articles/${article._id}`} className="block">
+            <div className="group bg-white shadow-md hover:shadow-lg transition rounded-xl overflow-hidden lg:h-[300px]">
               {article.image && (
                 <div className="relative aspect-video w-full">
                   <Image

@@ -32,7 +32,7 @@ const MostRecentSection = ({mostRecentArticles, allMostRecentGridArticles, popul
 
   return (
     <section className='py-2 bg-white text-gray-800'>
-        <div className='px-4 sm:px-6 lg:px-8'>
+        <div className=''>
             <div className='flex flex-col lg:flex-row lg:space-x-8'>
                 {/* left side */}
                 <div className='w-full lg:w-8/12 mb-8 lg:mb-0'>

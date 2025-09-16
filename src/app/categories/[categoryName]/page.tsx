@@ -64,7 +64,7 @@ const articles = await getArticlesByCategory(decodedCategoryName)
               <h2 className="text-2xl font-semibold text-gray-700">No articles found</h2>
               <p className="text-gray-500 mt-2">There are no articles in the &quot; {decodedCategoryName} &quot;category yet.</p>
              <Button variant="secondary"
-              className=" border mt-6 border-gray-300 rounded-md bg-primary text-white transition-colors cursor-pointer cursor-pointer">
+              className=" border mt-6 border-gray-300 rounded-md bg-primary text-white transition-colors cursor-pointer">
                <Link href="/">
                 Back to Home
               </Link>
