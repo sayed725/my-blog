@@ -11,6 +11,7 @@ export async function postComment(payload: {
             payload
         )
     })
+
     if(!res.ok) throw new Error("Failed to post comment");
     return res.json()
 }

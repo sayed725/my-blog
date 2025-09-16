@@ -6,15 +6,20 @@ import { useUser } from '@clerk/nextjs';
 import React, { FormEvent, useState } from 'react'
 import CommentItem from './CommentItem';
 import Pagination from './Pagination';
-// import Pagination from '../ui/Pagination';
+
+
+
+
 
 
 interface CommentsSectionProps {
     articleId: string;
     initialComments: Comment[]
+   
 }
 
 const CommentsSection = ({articleId, initialComments}: CommentsSectionProps) => {
+    
     const {isSignedIn, user} = useUser();
     const [comments, setComments] = useState<Comment[]>(initialComments);
     const [replyingTo, setReplyingTo] = useState<string | null>(null);
@@ -42,6 +47,12 @@ const CommentsSection = ({articleId, initialComments}: CommentsSectionProps) => 
             })
             setComments(comments.map(c => c._id === updated._id ? updated._id : c));
             setReplyingTo(null)
+            alert("Reply posted successfully!");
+         
+            
+           
+           
+           
 
         } catch (error: unknown) {
              if (error instanceof Error) {
@@ -80,6 +91,12 @@ const CommentsSection = ({articleId, initialComments}: CommentsSectionProps) => 
             setComments([newComment, ...comments])
             setCurrentPage(1)
             form.reset()
+           
+            
+          
+            
+            
+          
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(err.message);

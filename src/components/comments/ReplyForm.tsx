@@ -16,6 +16,7 @@ const ReplyForm = ({onSubmit, isSubmitting, placeholder}: ReplyFormProps) => {
         if(!text.trim()) return;
         onSubmit(text);
         setText("")
+        
     }
   return (
     <form onSubmit={handleSubmit} className='mt-4 space-y-2'>

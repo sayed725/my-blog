@@ -29,7 +29,7 @@ const CommentItem = ({comment, isReplying, onReplyClick, onReplySubmit, isSubmit
             </div>
         </div>
         {
-            comment?.replyText?.length > 0 && <ReplyList replies ={comment.replyText}/>
+            comment?.replyText && <ReplyList replies ={comment.replyText}/>
         }
 
         {

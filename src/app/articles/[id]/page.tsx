@@ -16,11 +16,12 @@ interface IArticle extends Article {
 async function getArticle(id:string): Promise<IArticle | null> {
     try {
         const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/articles/${id}`;
-        const res = await fetch(apiUrl, {next: {revalidate: 100} })
+        const res = await fetch(apiUrl)
 
         if(!res.ok){
           return null
         }
+
 
         const articleData = await res.json()
 
@@ -30,6 +31,8 @@ async function getArticle(id:string): Promise<IArticle | null> {
             authorImageUrl: 'https://placehold.co/120x120/e2e8f0/4a5568?text=Author',
             comments: articleData.comments
         }
+
+        
 
 
 
