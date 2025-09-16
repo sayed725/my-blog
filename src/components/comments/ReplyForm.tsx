@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
 type ReplyFormProps = {
@@ -11,11 +12,13 @@ type ReplyFormProps = {
 const ReplyForm = ({onSubmit, isSubmitting, placeholder}: ReplyFormProps) => {
     const [text, setText] = useState('');
 
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if(!text.trim()) return;
         onSubmit(text);
         setText("")
+        
         
     }
   return (

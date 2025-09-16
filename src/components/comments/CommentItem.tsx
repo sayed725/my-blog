@@ -13,10 +13,12 @@ interface CommentItemProps {
 }
 
 const CommentItem = ({comment, isReplying, onReplyClick, onReplySubmit, isSubmitting}: CommentItemProps) => {
+
+    // console.log(comment.authorImageUrl)
   return (
     <div className='mb-6'>
         <div className='flex items-start space-x-4'>
-            <img src={comment.authorImageUrl || "https://placehold.co/50x50/e2e8f0/4a5568?text=User"} alt="" className='w-12 h-12 rounded-full' />
+            <img src={comment.authorImageUrl} alt={comment.author} className='w-12 h-12 rounded-full' />
             <div>
                 <p>{comment.content}</p>
                 <div className='text-sm text-gray-600'>
