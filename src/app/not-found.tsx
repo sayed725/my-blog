@@ -40,7 +40,7 @@ const NotFound = () => {
               style={{ animationDelay: "1.5s" }}
             ></div>
             <div
-              className="absolute left-3/4 top-0 h-full w-px bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse"
+              className="absolute left-3/4 top-0 h-full w-px bg-gradient-to-b from-transparent via-green-500 to-transparent animate-pulse"
               style={{ animationDelay: "2.5s" }}
             ></div>
           </div>
