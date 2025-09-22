@@ -62,7 +62,7 @@ const NotFound = () => {
               </p>
 
               <p className="text-base mb-8 max-w-md text-gray-600">
-                The page you’re looking for doesn’t exist or has been moved. Let’s get you back on track.
+                The page you’re looking for doesn’t exist or has been removed. Let’s get you back on track.
               </p>
 
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
