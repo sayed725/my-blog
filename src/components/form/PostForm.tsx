@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import QuillEditor from './QuillEditor';
 import Image from 'next/image';
+import { Button } from '../ui/button';
 
 
 export interface PostFormType {
@@ -176,7 +177,7 @@ const PostForm = ({onSubmit, initialData}: PostFormProps) => {
                 setExistingImage(null); // Clear existing image if a new file is selected
             }
          }}
-         className="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border-0 file:rounded-full file:text-sm file:font-semibold file:bg-indigo-500 file:text-white hover:file:bg-indigo-600 file:hover:text-white cursor-pointer"
+         className="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border-0 file:rounded-full file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-green-600 file:hover:text-white cursor-pointer"
         />
 
         {
@@ -199,7 +200,9 @@ const PostForm = ({onSubmit, initialData}: PostFormProps) => {
 
         {/* submit button */}
     <div>
-        <button type='submit' className='bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors'>Submit</button>
+        <Button  variant="secondary"
+              className=" border border-gray-300 text-gray-800 rounded-md hover:bg-primary hover:text-white transition-colors cursor-pointer"
+         type='submit'>Submit</Button>
     </div>
 
 
