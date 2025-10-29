@@ -145,7 +145,7 @@ const Navbar = () => {
               variant="secondary"
               className=" border border-gray-300 text-gray-800 rounded-md hover:bg-primary hover:text-white transition-colors cursor-pointer"
             >
-              <Link href={"/contract"}>Contract</Link>
+              <Link href={"/contact"}>Contract</Link>
             </Button>
 
             {/* clerk  */}

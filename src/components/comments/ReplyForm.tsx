@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import { Button } from '../ui/button';
 
 type ReplyFormProps = {
     onSubmit: (text: string) => void;
@@ -30,9 +31,9 @@ const ReplyForm = ({onSubmit, isSubmitting, placeholder}: ReplyFormProps) => {
         placeholder={placeholder}
         ></textarea>
         <div className='flex justify-end'>
-            <button disabled={isSubmitting} className='bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50'>
+            <Button disabled={isSubmitting} className='bg-primary text-white rounded disabled:opacity-50'>
                 {isSubmitting ? "Posting..": "Post Reply"}
-            </button>
+            </Button>
         </div>
     </form>
   )
