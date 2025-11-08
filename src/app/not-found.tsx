@@ -54,7 +54,7 @@ const NotFound = () => {
               </div>
 
               <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-             404! Page Not Found
+              Page Not Found
               </h1>
 
               <p className="text-lg md:text-xl font-medium mb-2 text-green-600">
